@@ -874,7 +874,7 @@ static blk_status_t nvme_map_data(struct nvme_dev *dev, struct request *req,
 					     rq_dma_dir(req), DMA_ATTR_NO_WARN);
 	if (!nr_mapped)
 		goto out_free_sg;
-
+	
 	iod->use_sgl = nvme_pci_use_sgls(dev, req);
 	if (iod->use_sgl)
 		ret = nvme_pci_setup_sgls(dev, req, &cmnd->rw, nr_mapped);
@@ -1781,7 +1781,6 @@ static int nvme_create_io_queues(struct nvme_dev *dev)
 			break;
 		}
 	}
-
 	max = min(dev->max_qid, dev->ctrl.queue_count - 1);
 	if (max != 1 && dev->io_queues[HCTX_TYPE_POLL]) {
 		rw_queues = dev->io_queues[HCTX_TYPE_DEFAULT] +
